@@ -1,11 +1,15 @@
-import { serve, syncUserCreation, syncUserDeletion, syncUserUpdation } from "@/config/inngest";
+import { serve } from "inngest/next";
+import { inngest, syncUserCreation, syncUserDeletion, syncUserUpdation } from "@/config/inngest";
 
-// Create an API that serves zero functions
+// Prevent Next.js from trying to prerender this API at build time
+export const dynamic = "force-dynamic";
+
+// Register Inngest functions
 export const { GET, POST, PUT } = serve({
   client: inngest,
   functions: [
-   syncUserCreation,
+    syncUserCreation,
     syncUserUpdation,
-    syncUserDeletion
+    syncUserDeletion,
   ],
 });
